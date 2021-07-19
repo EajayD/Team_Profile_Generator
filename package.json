@@ -16,5 +16,9 @@
   "bugs": {
     "url": "https://github.com/EajayD/Team_Profile_Generator/issues"
   },
-  "homepage": "https://github.com/EajayD/Team_Profile_Generator#readme"
+  "homepage": "https://github.com/EajayD/Team_Profile_Generator#readme",
+  "dependencies": {
+    "inquirer": "^8.1.2",
+    "jest": "^27.0.6"
+  }
 }
