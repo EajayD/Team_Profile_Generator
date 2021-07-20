@@ -3,6 +3,8 @@ const inquirer = require('inquirer');
 const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
+const generateHtml = require('./src/generateHTML');
+const managerCard = require('./src/managerCard');
 
 // array for employees
 const employees = [];
@@ -161,6 +163,21 @@ function addIntern() {
             createHtml();
         }
     })
+}
+
+function createHtml() {
+    fs.writeFileSync('./dist/index.html', generateHtml, (err) => {
+        if(err) console.log('error', error)
+    })
+    for(let i = 0; i <employees.length; i++){
+        let role = employees[i].getRole()
+        if (role === 'Manager'){
+            const {name, id, email, officeNumber} = employees[i];
+            fs.appendFileSync('./dist/index.html', managerCard(name, role, id, email, officeNumber), (err) => {
+                if(err) console.log('error', error)
+            })
+        }
+    }
 }
 
 init();
