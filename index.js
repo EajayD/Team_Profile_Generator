@@ -39,7 +39,7 @@ function init() {
     inquirer.prompt(managerQuestions)
         .then(answers => {
             let {name, id, email, officeNumber} = answers
-            const person = new Manager(name, id, email, officeNumber)
+            let person = new Manager(name, id, email, officeNumber)
             employees.push(person)
             addEmployee();
         })
@@ -60,10 +60,102 @@ function addEmployee() {
     .then(answer => {
         let {role} = answer;
         if (role === 'Engineer') {
-            engineerQuestions();
+            addEngineer();
         }
         else if (role === 'Intern') {
-            internQuestions();
+            addIntern();
+        }
+        else {
+            createHtml();
+        }
+    })
+}
+
+function addEngineer() {
+    inquirer.prompt([
+        {
+            type: 'input',
+            message: 'What is the name of the engineer?',
+            name: 'name'
+        },
+
+        {
+            type: 'input',
+            message: 'Please enter an ID number',
+            name: 'id'
+        },
+
+        {
+            type: 'input',
+            message: 'What is their email',
+            name: 'email'
+        },
+
+        {
+            type: 'input',
+            message: 'What is their Github username?',
+            name: 'github'
+        },
+
+        {
+            type: 'list',
+            message: 'Do you want to add more employees?',
+            choices: ['Yes', 'No'],
+            name: 'add'
+        }
+    ])
+    .then(answers => {
+        let {name, id, email, github, add} = answers;
+        let person = new Engineer(name, id, email, github);
+        employees.push(person);
+        if (add === 'Yes'){
+            addEmployee()
+        }
+        else {
+            createHtml();
+        }
+    })
+}
+
+function addIntern() {
+    inquirer.prompt([
+        {
+            type: 'input',
+            message: ' What is the name of the intern?',
+            name: 'name'
+        },
+
+        {
+            type: 'input',
+            message: 'Please enter an ID number',
+            name: 'id'
+        },
+
+        {
+            type: 'input',
+            message: 'What is the email of the intern?',
+            name: 'email'
+        },
+
+        {
+            type: 'input',
+            message: 'What school are/did they go to?',
+            name: 'school'
+        },
+
+        {
+            type: 'list',
+            message: 'Do you want to add more employees?',
+            choices: ['Yes', 'No'],
+            name: 'add'
+        }
+    ])
+    .then(answers => {
+        let {name, id, email, school, add} = answers;
+        let person = new Intern(name, id, email, school);
+        employees.push(person);
+        if (add === "Yes"){
+            addEmployee();
         }
         else {
             createHtml();
