@@ -5,6 +5,9 @@ const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 const generateHtml = require('./src/generateHTML');
 const managerCard = require('./src/managerCard');
+const engineerCard = require('./src/engineerCard');
+const internCard = require('./src/internCard');
+const endHtml = require('./src/endHTML');
 
 // array for employees
 const employees = [];
@@ -166,18 +169,33 @@ function addIntern() {
 }
 
 function createHtml() {
-    fs.writeFileSync('./dist/index.html', generateHtml, (err) => {
-        if(err) console.log('error', error)
+    fs.writeFileSync('./dist/index.html', generateHtml, (err) => { //generate top part of HTML
+        if(err) console.log('error', err)
     })
     for(let i = 0; i <employees.length; i++){
         let role = employees[i].getRole()
-        if (role === 'Manager'){
+        if (role === 'Manager'){ // append Manager card
             const {name, id, email, officeNumber} = employees[i];
             fs.appendFileSync('./dist/index.html', managerCard(name, role, id, email, officeNumber), (err) => {
                 if(err) console.log('error', error)
             })
         }
+        if (role === 'Engineer'){ // append Engineer card
+            const {name, id, email, github} = employees[i];
+            fs.appendFileSync('./dist/index.html', engineerCard(name, role, id, email, github), (err) => {
+                if(err) console.log('error', error)
+            })
+        }
+        if (role === 'Intern'){ // append Intern card
+            const {name, id, email, school} = employees[i];
+            fs.appendFileSync('./dist/index.html', internCard(name, role, id, email, school), (err) => {
+                if(err) console.log('error', error)
+            })
+        }
     }
+    fs.appendFileSync('./dist/index.html', endHtml, (err) => { // close out HTML cause I wasn't sure how to appened to a template literal with multiple parts so I did it the long way in parts
+        err ? console.error(err) : console.log('Check the index.html in the /dist/ folder!');
+    })
 }
 
 init();
