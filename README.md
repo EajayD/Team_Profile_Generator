@@ -62,3 +62,5 @@ This is a simple team generator which allows you to organize your employees base
 
 Below is a link to a walkthrough video of how the generator works
 
+
+<a href = "https://drive.google.com/file/d/1aqAPm_wrLOtPx_jPRiv0EW5a5_NdHlje/view?usp=sharing">Click me to see how the generator works</a>
